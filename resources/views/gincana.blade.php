@@ -20,7 +20,7 @@
         </form>
     </div>
     <center>
-            {{-- <div id="myModal" class="modal">
+            <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <form id="formUpdate" method="post" onsubmit="actualizar();closeModal();return false;">
@@ -40,17 +40,39 @@
                         <input type="hidden" name="id" id="idUpdate">
                     </form>
                 </div>
-            </div> --}}
-            <br>
-        {{-- <div>
+            </div>
+            <br><br><br>
+        <div>
+            <div>
+                <form class="formulario" id="formcrear" method="post" onsubmit="crear();return false;">
+                    <span>Nombre</span>
+                        <input type="text" name="nombre_usuario" id="nombreUpdate">
+                        <span>Email</span>
+                        <input type="text" name="email_usuario" id="email_usuario">
+                        <span>Contraseña</span>
+                        <input type="password" name="contra_usuario" id="contra_usuario">
+                        <span>Telefono</span>
+                        <input type="number" name="telf_usuario" id="telf_usuario">
+                        <span>Foto</span>
+                        <input type="file" name="foto_usuario" id="foto_usuario">
+                    <br><br>
+                    <input type="hidden" name="_method" value="POST" id="createUsuario">
+                    <input class="btn btn-success" type="submit" value="Crear">
+                </form>
+                <br>
+                <div id="message" style="color:rgb(0, 0, 0)"></div>
+            </div>
+        </div>
+        <br><br>
+        <div>
             <form method="post" onsubmit="return false;">
                 <input type="hidden" name="_method" value="POST" id="postFiltro">
                 <div class="form-outline">
                    <input type="search" id="search" name="nombre" class="form-control" placeholder="Filtrar por..." aria-label="Search" onkeyup="filtro(); return false;"/>
                 </div>
              </form>
-        </div> --}}
-        <div>
+        </div>
+        {{-- <div>
             <table class="table" id="table">
                 <tr>
                     <th scope="col">ID</th>
@@ -65,23 +87,20 @@
                 </tr>
                 @forelse ($usuarios as $usuario)
                 <tr>
-                    <td>{{$usuario->id_usuario}}</td>
+                    <td>{{$usuario->id}}</td>
                     <td>{{$usuario->nombre_usuario}}</td>
                     <td>{{$usuario->email_usuario}}</td>
                     <td>{{$usuario->telf_usuario}}</td>
                     <td><img src="./storage/usuarios/{{$usuario->foto_usuario}}" width="100px" height="100px"></td>
                     <td>{{$usuario->nombre_rol}}</td>
                     <td>{{$usuario->nombre_grupo}}</td>
-                    <td><form action="{{url('modificarUsuario/'.$usuario->id_usuario)}}" method="GET">
-                        <button class="btn btn-secondary" type="submit" name="Modificar" value="Modificar">Editar</button>
-                    </form></td>
-                    {{-- <td>
+                    <td>
                         <button class= "btn btn-secondary" type="submit" value="Edit" onclick="modalbox({{$usuario->id}},'{{$usuario->nombre_usuario}}','{{$usuario->email_usuario}}','{{$usuario->contra_usuario}}','{{$usuario->telf_usuario}}','{{$usuario->foto_usuario}}');return false;">Editar</button>
-                    </td> --}}
+                    </td>
                     <td>
                         <form method="post">
                             <input type="hidden" name="_method" value="DELETE" id="deleteUsuario">
-                            <button class="btn btn-danger" type="submit" value="Delete" onclick="eliminar({{$usuario->id_usuario}}); return false;">Eliminar</button>
+                            <button class="btn btn-danger" type="submit" value="Delete" onclick="eliminar({{$usuario->id}}); return false;">Eliminar</button>
                          </form>
                     </td>
                 </tr>
@@ -89,10 +108,10 @@
                 <tr><td colspan="7">No hay registros</td></tr>
                 @endforelse
             </table>
-        </div>
+        </div> --}}
     </center>
     {{-- <script>
-        /*FI*/
+                /*FI*/
         var modal = document.getElementById("myModal");
 
         // Get the <span> element that closes the modal
@@ -124,7 +143,7 @@
             }
         }
     </script> --}}
-    <img src="./storage/usuario.png" name="back" value="back" width="50px" height="50px">
+    <img src="./storage/gincana.png" name="back" value="back" width="50px" height="50px">
 </body>
 
 </html>

@@ -15,19 +15,8 @@ function objetoAjax() {
     return xmlhttp;
 }
 
-function filtro() {
-    /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
+/* function filtro() {
     var table = document.getElementById('table');
-    /* 
-    Obtener elemento/s que se pasarán como parámetros: token, method, inputs... 
-    var token = document.getElementById('token').getAttribute("content");
-
-
-    Usar el objeto FormData para guardar los parámetros que se enviarán:
-    var formData = new FormData();
-    formData.append('_token', token);
-    formData.append('clave', valor);
-    */
     var token = document.getElementById('token').getAttribute("content");
     var method = document.getElementById('postFiltro').value;
     var filtro = document.getElementById('search').value;
@@ -37,19 +26,11 @@ function filtro() {
     formData.append('_method', method);
     formData.append('nombre_usuario', filtro);
 
-    /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    /*
-    ajax.open("method", "rutaURL", true);
-    GET  -> No envía parámetros
-    POST -> Sí envía parámetros
-    true -> asynchronous
-    */
     ajax.open("POST", "filtro", true);
     ajax.onreadystatechange = function() {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var respuesta = JSON.parse(this.responseText);
-                /* Crear la estructura html que se devolverá dentro de una variable recarga*/
                 var recarga = '';
                 recarga += '<tr>';
                 recarga += '<th scope="col">ID</th>';
@@ -84,68 +65,38 @@ function filtro() {
                     recarga += '</tr>';
                 }
                 table.innerHTML = recarga;
-                /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
             }
         }
-        /*
-        send(string)->Sends the request to the server (used for POST)
-        */
     ajax.send(formData)
-}
+} */
 
 function crear() {
     var message = document.getElementById('message');
-    /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
-
-    /* 
-    Obtener elemento/s que se pasarán como parámetros: token, method, inputs... 
-    var token = document.getElementById('token').getAttribute("content");
- 
-    Usar el objeto FormData para guardar los parámetros que se enviarán:
-    var formData = new FormData();
-    formData.append('_token', token);
-    formData.append('clave', valor);
-    */
     var token = document.getElementById('token').getAttribute("content");
     var method = document.getElementById('createUsuario').value;
     var formData = new FormData(document.getElementById('formcrear'));
     formData.append('_token', token);
     formData.append('_method', method);
-    /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    /*
-    ajax.open("method", "rutaURL", true);
-    GET  -> No envía parámetros
-    POST -> Sí envía parámetros
-    true -> asynchronous
-    */
     ajax.open("POST", "crear", true);
     ajax.onreadystatechange = function() {
-            if (ajax.readyState == 4 && ajax.status == 200) {
-                var respuesta = JSON.parse(this.responseText);
-                if (respuesta.resultado == "OK") {
-                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
-                    message.innerHTML = '<p>Usuario creado correctamente.</p>';
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            if (respuesta.resultado == "OK") {
+                message.innerHTML = '<p>Usuario creado correctamente.</p>';
 
-                } else {
-                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    //    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
-                    message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
-                }
-                filtro();
-                document.getElementById('nombre_usuario').value = "";
-                document.getElementById('email_usuario').value = "";
-                document.getElementById('contra_usuario').value = "";
-                document.getElementById('telf_usuario').value = "";
-                document.getElementById('foto_usuario').value = "";
-                document.getElementById('nombre_usuario').focus();
+            } else {
+                message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
             }
+            filtro();
+            document.getElementById('nombre_usuario').value = "";
+            document.getElementById('email_usuario').value = "";
+            document.getElementById('contra_usuario').value = "";
+            document.getElementById('telf_usuario').value = "";
+            document.getElementById('foto_usuario').value = "";
+            document.getElementById('nombre_usuario').focus();
         }
-        /*
-        send(string)->Sends the request to the server (used for POST)
-        */
+    }
     ajax.send(formData)
 }
 

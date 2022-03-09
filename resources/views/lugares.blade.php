@@ -11,11 +11,16 @@
     <title>Laravel Lugares</title>
 </head>
 <body>
-    <form action="{{url('secciones')}}" method="GET">
-        <button class="btn btn-primary" type="submit" name="back" value="back">Back</button>
-    </form>
+    <div>
+        <form class="back" action="{{url('secciones')}}" method="GET">
+            <button><img src="./storage/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+        </form>
+        <form class="add" action="{{url('crearLugar')}}" method="GET">
+            <button><img src="./storage/+.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+        </form>
+    </div>
     <center>
-            <div id="myModal" class="modal">
+            {{-- <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <form id="formUpdate" method="post" onsubmit="actualizar();closeModal();return false;">
@@ -37,9 +42,9 @@
                         <input type="hidden" name="id" id="idUpdate">
                     </form>
                 </div>
-            </div>
-            <br><br><br>
-        <div>
+            </div> --}}
+            <br>
+        {{-- <div>
             <div>
                 <form class="formulario" id="formcrear" method="post" onsubmit="crear();return false;">
                     <span>Nombre</span>
@@ -61,16 +66,15 @@
                 <br>
                 <div id="message" style="color:rgb(0, 0, 0)"></div>
             </div>
-        </div>
-        <br><br>
-        <div>
+        </div> --}}
+        {{-- <div>
             <form method="post" onsubmit="return false;">
                 <input type="hidden" name="_method" value="POST" id="postFiltro">
                 <div class="form-outline">
                    <input type="search" id="search" name="nombre" class="form-control" placeholder="Filtrar por..." aria-label="Search" onkeyup="filtro(); return false;"/>
                 </div>
              </form>
-        </div>
+        </div> --}}
         <div>
             <table class="table" id="table">
                 <tr>
@@ -86,22 +90,22 @@
                 </tr>
                 @forelse ($lugares as $lugar)
                 <tr>
-                    <td>{{$lugar->id}}</td>
+                    <td>{{$lugar->id_lugar}}</td>
                     <td>{{$lugar->nombre_lugar}}</td>
                     <td>{{$lugar->ubi_lugar}}</td>
                     <td>{{$lugar->telf_lugar}}</td>
                     <td>{{$lugar->descripcion_lugar}}</td>
-                    <td><img src="./storage/lugares/{{$lugar->foto_lugar}}" width="150px" height="150px"></td>
+                    <td><img src="./storage/lugar/{{$lugar->foto_lugar}}" width="150px" height="150px"></td>
                     <td>{{$lugar->nombre_tipo}}</td>
                     <td>{{$lugar->nombre_tag}}</td>
-                    <td>
-                        <button class= "btn btn-secondary" type="submit" value="Edit" onclick="modalbox({{$lugar->id}},'{{$lugar->nombre_lugar}}','{{$lugar->ubi_lugar}}','{{$lugar->telf_lugar}}','{{$lugar->descripcion_lugar}}','{{$lugar->foto_lugar}}','{{$lugar->id_tipo_fk}}');return false;">Editar</button>
-                    </td>
+                    <td><form action="{{url('modificarLugar/'.$lugar->id_lugar)}}" method="GET">
+                        <button class="btn btn-secondary" type="submit" name="Modificar" value="Modificar">Editar</button>
+                    </form></td>
                     <td>
                         <form method="post">
                             <input type="hidden" name="_method" value="DELETE" id="deleteLugar">
-                            <button class="btn btn-danger" type="submit" value="Delete" onclick="eliminar({{$lugar->id}}); return false;">Eliminar</button>
-                         </form>
+                            <button class="btn btn-danger" type="submit" value="Delete" onclick="eliminar({{$lugar->id_lugar}}); return false;">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 @empty
@@ -110,7 +114,7 @@
             </table>
         </div>
     </center>
-    <script>
+    {{-- <script>
                 /*FI*/
         var modal = document.getElementById("myModal");
 
@@ -143,7 +147,8 @@
                 closeModal();
             }
         }
-    </script>
+    </script> --}}
+    <img src="./storage/mapa.png" name="back" value="back" width="50px" height="50px">
 </body>
 
 </html>

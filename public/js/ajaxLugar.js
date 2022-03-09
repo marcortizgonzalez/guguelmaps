@@ -96,44 +96,22 @@ function filtro() {
     ajax.send(formData)
 }
 
-function crear() {
+/* function crear() {
     var message = document.getElementById('message');
-    /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
-
-    /* 
-    Obtener elemento/s que se pasarán como parámetros: token, method, inputs... 
-    var token = document.getElementById('token').getAttribute("content");
- 
-    Usar el objeto FormData para guardar los parámetros que se enviarán:
-    var formData = new FormData();
-    formData.append('_token', token);
-    formData.append('clave', valor);
-    */
     var token = document.getElementById('token').getAttribute("content");
     var method = document.getElementById('createLugar').value;
     var formData = new FormData(document.getElementById('formcrear'));
     formData.append('_token', token);
     formData.append('_method', method);
-    /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    /*
-    ajax.open("method", "rutaURL", true);
-    GET  -> No envía parámetros
-    POST -> Sí envía parámetros
-    true -> asynchronous
-    */
     ajax.open("POST", "crear", true);
     ajax.onreadystatechange = function() {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var respuesta = JSON.parse(this.responseText);
                 if (respuesta.resultado == "OK") {
-                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
                     message.innerHTML = '<p>Lugar creado correctamente.</p>';
 
                 } else {
-                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    //    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
                     message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
                 }
                 filtro();
@@ -146,11 +124,8 @@ function crear() {
                 document.getElementById('nombre_lugar').focus();
             }
         }
-        /*
-        send(string)->Sends the request to the server (used for POST)
-        */
     ajax.send(formData)
-}
+} */
 
 function eliminar(lugar_id) {
     var message = document.getElementById('message');

@@ -15,7 +15,7 @@
 
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
-    <script src="js/ajax.js"></script>
+    <script src="js/code.js"></script>
 
 </head>
 <body>
@@ -50,11 +50,39 @@
             <button type="button" >Logout</button>
         </a>
         @else
-        <a href="{{url('secciones')}}" {{-- onclick="modalbox({{$usuario->id}},'{{$usuario->nombre}}','{{$usuario->num_serie}}');return false;" --}}>
+        <a href="{{url('secciones')}}" {{-- onclick="modalbox({{$usuario->email_usuario}},'{{$usuario->contra_usuario}}');return false;" --}}>
             <img src="storage/usuarios/default.png" height="50px" width="50px">
         </a>
         @endif
     </div>
+    <script>
+        /*FI*/
+        var modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        function modalbox(email_usuario,contra_usuario){
+          modal.style.display = "block";
+          document.getElementById('email_usuario').value = email_usuario;
+          document.getElementById('contra_usuario').value = contra_usuario;
+        }
+        function closeModal(){
+          modal.style.display = "none";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          closeModal();
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+              closeModal();
+          }
+        }
+        </script>
 </body>
 
 </html>
