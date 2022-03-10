@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiempo</title>
     <!-- iconos FontAwesome-->
-    <script type="text/javascript" src="js/iconos_g.js"></script>
+    <script type="text/javascript" src="../public/js/iconos_g.js"></script>
     <!--JQUERY-->
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="../public/js/jquery.js"></script>
     <!--COOKIES-->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.0/src/js.cookie.min.js"></script>
     <!-- sweetAlert -->
@@ -20,14 +19,15 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <!-- owl carousel -->
-    <script src="js/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <script src="../public/js/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="../public/css/owl.carousel.min.css">
     <!-- ||||||||||CUSTOM||||||||||| -->
-    <script src="js/js.js"></script>
-    <script src="js/modal.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <script src="../public/js/js.js"></script>
+    <script src="../public/js/modal.js"></script>
+    <link rel="stylesheet" href="../public/css/styles.css">
 
-    <title>Ejercicios</title>
+    <title>Guguel Maps</title>
+    <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
 </head>
 <!-- pagina principal -->
 
@@ -47,55 +47,23 @@
             <div class="main-tags">
                 <div class="content-tags">
                     <!-- Cada tags debe de venir de un foreach -->
+                    @foreach($tipolist as $tipo)
                     <div class="tag">
                         <!-- el <i> debe ser el icono y el span el nombre del tag -->
-                        <i class="fad fa-utensils"></i><span class="txt-tag">Comida</span>
+                        <i class="{{$tipo->icono_tipo}}"></i><span class="txt-tag">&nbsp{{$tipo->nombre_tipo}}</span>
                     </div>
-                    <div class="tag">
-                        <i class="fad fa-utensils-alt"></i><span class="txt-tag">Comida</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="user-tags">
                 <div class="content-tags">
                     <!-- Cada tags debe de venir de un foreach -->
+                    @foreach($taglist as $tag)
                     <div class="tag">
                         <!-- el <i> debe ser el icono y el span el nombre del tag -->
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
+                        <i class="{{$tag->icono_tag}}"></i><span class="txt-tag">&nbsp{{$tag->nombre_tag}}</span>
                     </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Bocatas</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Caro</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Cuki</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <!-- Para crear un tag personal -->
@@ -126,7 +94,7 @@
                     </div>
                     <div class="user-avatar">
                         <!-- foto del usuario -->
-                        <img src="media\avatar.png" alt="Avatar">
+                        <img src="../public/media\avatar.png" alt="Avatar">
                     </div>
                 </div>
             </div>
