@@ -24,7 +24,7 @@
             <p>Descripción:</p>
             <input class="btn-outline-success" type="text" name="descripcion_lugar" value="{{$lugar->descripcion_lugar}}">
             <p>Foto:</p>
-            <input type="file" name="foto_lugar" value="{{$lugar->foto_lugar}}">
+            <input type="file" name="foto_lugar" value="">
             <p>Tipo:</p>
             <select class="btn-outline-success" name="id_tipo_fk" id="id_tipo_fk">
                 @foreach ($tipo as $tipo)

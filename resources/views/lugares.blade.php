@@ -44,43 +44,22 @@
                 </div>
             </div> --}}
             <br>
-        {{-- <div>
-            <div>
-                <form class="formulario" id="formcrear" method="post" onsubmit="crear();return false;">
-                    <span>Nombre</span>
-                        <input type="text" name="nombre_lugar" id="nombreUpdate">
-                        <span>Ubicación</span>
-                        <input type="text" name="ubi_lugar" id="ubi_lugar">
-                        <span>Telefono</span>
-                        <input type="number" name="telf_lugar" id="telf_lugar">
-                        <span>Descripción</span>
-                        <input type="text" name="descripcion_lugar" id="descripcion_lugar">
-                        <span>Foto</span>
-                        <input type="file" name="foto_lugar" id="foto_lugar">
-                        <span>Tipo</span>
-                        <input type="select" name="id_tipo_fk" id="id_tipo_fk">
-                    <br><br>
-                    <input type="hidden" name="_method" value="POST" id="createLugar">
-                    <input class="btn btn-success" type="submit" value="Crear">
-                </form>
-                <br>
-                <div id="message" style="color:rgb(0, 0, 0)"></div>
-            </div>
-        </div> --}}
-        {{-- <div>
+        <div>
             <form method="post" onsubmit="return false;">
                 <input type="hidden" name="_method" value="POST" id="postFiltro">
                 <div class="form-outline">
-                   <input type="search" id="search" name="nombre" class="form-control" placeholder="Filtrar por..." aria-label="Search" onkeyup="filtro(); return false;"/>
+                   {{-- <input type="search" id="search" name="nombre" class="form-control" placeholder="Filtrar por..." aria-label="Search" onkeyup="filtro(); return false;"/> --}}
                 </div>
              </form>
-        </div> --}}
+        </div>
+        <div class=alert id='message'></div>
         <div>
             <table class="table" id="table">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Ubicación</th>
+                    <th scope="col">Dirección</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Foto</th>
@@ -93,6 +72,7 @@
                     <td>{{$lugar->id_lugar}}</td>
                     <td>{{$lugar->nombre_lugar}}</td>
                     <td>{{$lugar->ubi_lugar}}</td>
+                    <td>{{$lugar->direccion_lugar}}</td>
                     <td>{{$lugar->telf_lugar}}</td>
                     <td>{{$lugar->descripcion_lugar}}</td>
                     <td><img src="./storage/lugar/{{$lugar->foto_lugar}}" width="150px" height="150px"></td>

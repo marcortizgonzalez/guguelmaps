@@ -42,14 +42,15 @@
                 </div>
             </div> --}}
             <br>
-        {{-- <div>
+        <div>
             <form method="post" onsubmit="return false;">
                 <input type="hidden" name="_method" value="POST" id="postFiltro">
                 <div class="form-outline">
-                   <input type="search" id="search" name="nombre" class="form-control" placeholder="Filtrar por..." aria-label="Search" onkeyup="filtro(); return false;"/>
+                   {{-- <input type="search" id="search" name="nombre" class="form-control" placeholder="Filtrar por..." aria-label="Search" onkeyup="filtro(); return false;"/> --}}
                 </div>
              </form>
-        </div> --}}
+        </div>
+        <div class=alert id='message'></div>
         <div>
             <table class="table" id="table">
                 <tr>
@@ -75,9 +76,6 @@
                     <td><form action="{{url('modificarUsuario/'.$usuario->id_usuario)}}" method="GET">
                         <button class="btn btn-secondary" type="submit" name="Modificar" value="Modificar">Editar</button>
                     </form></td>
-                    {{-- <td>
-                        <button class= "btn btn-secondary" type="submit" value="Edit" onclick="modalbox({{$usuario->id}},'{{$usuario->nombre_usuario}}','{{$usuario->email_usuario}}','{{$usuario->contra_usuario}}','{{$usuario->telf_usuario}}','{{$usuario->foto_usuario}}');return false;">Editar</button>
-                    </td> --}}
                     <td>
                         <form method="post">
                             <input type="hidden" name="_method" value="DELETE" id="deleteUsuario">

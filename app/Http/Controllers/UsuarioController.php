@@ -41,7 +41,8 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function crearUsuario(){
-        return view('crearUser');
+        $grupo=DB::select('select * from tbl_grupo');
+        return view('crearUser', compact('grupo'));
     }
 
     public function crearUsuarioPost(Request  $request){
@@ -62,7 +63,7 @@ class UsuarioController extends Controller
 
         try{
             DB::beginTransaction();
-            DB::table('tbl_usuario')->insertGetId(["nombre_usuario"=>$datos['nombre_usuario'],"email_usuario"=>$datos['email_usuario'],"contra_usuario"=>MD5($datos['contra_usuario']),"telf_usuario"=>$datos['telf_usuario'],"foto_usuario"=>$datos['foto_usuario'],"id_rol_fk"=>$datos['id_rol_fk']]);
+            DB::table('tbl_usuario')->insertGetId(["nombre_usuario"=>$datos['nombre_usuario'],"email_usuario"=>$datos['email_usuario'],"contra_usuario"=>MD5($datos['contra_usuario']),"telf_usuario"=>$datos['telf_usuario'],"foto_usuario"=>$datos['foto_usuario'],"id_rol_fk"=>$datos['id_rol_fk'],"id_grupo_fk"=>$datos['id_grupo_fk']]);
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
@@ -77,11 +78,11 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show()
     {
         /* $usuario=DB::table('tbl_usuario')->join('tbl_rol','tbl_usuario.id_rol_fk','=','tbl_rol.id')->join('tbl_grupo','tbl_usuario.id_grupo_fk','=','tbl_grupo.id')->select('*')->where('nombre_usuario like ?',['%'.$request->input('nombre_usuario').'%']); */
-        $usuario=DB::select('select * from tbl_usuario INNER JOIN tbl_rol ON tbl_usuario.id_rol_fk = tbl_rol.id_rol INNER JOIN tbl_grupo ON tbl_usuario.id_grupo_fk = tbl_grupo.id_grupo WHERE nombre_usuario like ?',['%'.$request->input('nombre_usuario').'%']);
-        return response()->json($usuario);
+        $usuarios=DB::select('select * from tbl_usuario INNER JOIN tbl_rol ON tbl_usuario.id_rol_fk=tbl_rol.id_rol INNER JOIN tbl_grupo ON tbl_usuario.id_grupo_fk=tbl_grupo.id_grupo');
+        return response()->json($usuarios);
     }
 
     /**
@@ -103,7 +104,7 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function modificarUsuario($id){
-        $usuario=DB::table('tbl_usuario')/* ->join('tbl_rol','tbl_usuario.id_rol_fk','=','tbl_rol.id') */->select()->where('id_usuario','=',$id)->first();
+        $usuario=DB::table('tbl_usuario')->select()->where('id_usuario','=',$id)->first();
         $rol=DB::select('select id_rol, nombre_rol from tbl_rol;');
         return view('modificarUsuario', compact('usuario','rol'));
     }
@@ -115,7 +116,7 @@ class UsuarioController extends Controller
             if ($foto->foto_usuario != null) {
                 Storage::delete('public/'.$foto->foto_usuario);
             }
-            $datos['foto_usuario'] = $request->file('foto_usuario')->store('uploads','public');
+            $datos['foto_usuario'] = $request->file('foto_usuario')->store('usuarios','public');
         }else{
             $foto = DB::table('tbl_usuario')->select('foto_usuario')->where('id_usuario','=',$request['id_usuario'])->first();
             $datos['foto_usuario'] = $foto->foto_usuario;
@@ -138,10 +139,10 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            DB::delete('delete from tbl_usuario where id_usuario=?',[$id]);
+            DB::delete('delete from tbl_usuario where id_usuario=?',[$request->input('id')]);
             //return redirect()->route('clientes.index');
             return response()->json(array('resultado'=> 'OK'));
         } catch (\Throwable $th) {

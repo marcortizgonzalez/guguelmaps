@@ -30,7 +30,7 @@
                     {{$message}}
                 @enderror
             <p>contraseña:</p>
-                <input class="btn-outline-success" type="text" name="contra_usuario">
+                <input class="btn-outline-success" type="password" name="contra_usuario">
                 @error('contra_usuario')
                     <br>
                     {{$message}}
@@ -57,6 +57,13 @@
                     <br>
                     {{$message}}
                 @enderror
+            <p>Grupo:</p>
+                <select class="btn-outline-success" name="id_grupo_fk" id="id_grupo_fk">
+                    <option value=""></option>
+                    @foreach ($grupo as $grupo)
+                    <option value="{{$grupo->id_grupo}}">{{$grupo->nombre_grupo}}</option>
+                @endforeach
+                </select>
             <br><br>
             <div>
                 <input type="submit" value="Crear">

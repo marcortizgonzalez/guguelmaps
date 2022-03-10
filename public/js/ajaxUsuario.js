@@ -15,60 +15,58 @@ function objetoAjax() {
     return xmlhttp;
 }
 
-/* function filtro() {
+function filtro() {
     var table = document.getElementById('table');
     var token = document.getElementById('token').getAttribute("content");
-    var method = document.getElementById('postFiltro').value;
-    var filtro = document.getElementById('search').value;
 
     var formData = new FormData();
     formData.append('_token', token);
-    formData.append('_method', method);
-    formData.append('nombre_usuario', filtro);
+    formData.append('_method', 'post');
 
     var ajax = objetoAjax();
     ajax.open("POST", "filtro", true);
     ajax.onreadystatechange = function() {
-            if (ajax.readyState == 4 && ajax.status == 200) {
-                var respuesta = JSON.parse(this.responseText);
-                var recarga = '';
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            var recarga = '';
+            recarga += '<tr>';
+            recarga += '<th scope="col">ID</th>';
+            recarga += '<th scope="col">Nombre</th>';
+            recarga += '<th scope="col">Email</th>';
+            recarga += '<th scope="col">Password</th>';
+            recarga += '<th scope="col">Telefono</th>';
+            recarga += '<th scope="col">Foto</th>';
+            recarga += '<th scope="col">Rol</th>';
+            recarga += '<th scope="col">Grupo</th>';
+            recarga += '<th scope="col" colspan="2">Acciones</th>';
+            recarga += '</tr>';
+            for (let i = 0; i < respuesta.length; i++) {
                 recarga += '<tr>';
-                recarga += '<th scope="col">ID</th>';
-                recarga += '<th scope="col">Nombre</th>';
-                recarga += '<th scope="col">Email</th>';
-                recarga += '<th scope="col">Telefono</th>';
-                recarga += '<th scope="col">Foto</th>';
-                recarga += '<th scope="col">Rol</th>';
-                recarga += '<th scope="col">Grupo</th>';
-                recarga += '<th scope="col" colspan="2">Acciones</th>';
+                recarga += '<td scope="row">' + respuesta[i].id_usuario + '</td>';
+                recarga += '<td>' + respuesta[i].nombre_usuario + '</td>';
+                recarga += '<td>' + respuesta[i].email_usuario + '</td>';
+                recarga += '<td>' + respuesta[i].contra_usuario + '</td>';
+                recarga += '<td>' + respuesta[i].telf_usuario + '</td>';
+                recarga += '<td><img src="storage/usuarios/' + respuesta[i].foto_usuario + '" style="width:100px; height=100px;"></td>'
+                recarga += '<td>' + respuesta[i].nombre_rol + '</td>';
+                recarga += '<td>' + respuesta[i].nombre_grupo + '</td>';
+                recarga += '<td><form action="./modificarUsuario/' + respuesta[i].id_usuario + '" method="GET">';
+                recarga += '<button class="btn btn-secondary" type="submit" name="Modificar" value="Modificar">Editar</button>';
+                recarga += '</form></td>';
+                recarga += '<td>';
+                // eliminar
+                recarga += '<form method="post">';
+                recarga += '<input type="hidden" name="_method" value="DELETE" id="deleteUsuario">';
+                recarga += '<button class= "btn btn-danger" type="submit" value="Delete" onclick="eliminar(' + respuesta[i].id_usuario + ');return false;">Eliminar</button>';
+                recarga += '</form>';
+                recarga += '</td>';
                 recarga += '</tr>';
-                for (let i = 0; i < respuesta.length; i++) {
-                    recarga += '<tr>';
-                    recarga += '<td scope="row">' + respuesta[i].id + '</td>';
-                    recarga += '<td>' + respuesta[i].nombre_usuario + '</td>';
-                    recarga += '<td>' + respuesta[i].email_usuario + '</td>';
-                    recarga += '<td>' + respuesta[i].telf_usuario + '</td>';
-                    recarga += '<td><img src="storage/usuarios/' + respuesta[i].foto_usuario + '" style="width:100px; height=100px;"></td>'
-                    recarga += '<td>' + respuesta[i].nombre_rol + '</td>';
-                    recarga += '<td>' + respuesta[i].nombre_grupo + '</td>';
-                    recarga += '<td>';
-                    // editar
-                    recarga += '<button class="btn btn-secondary" type="submit" value="Edit" onclick="modalbox(' + respuesta[i].id + ',\'' + respuesta[i].nombre_usuario + '\',\'' + respuesta[i].email_usuario + ',\'' + respuesta[i].contra_usuario + ',\'' + respuesta[i].telf_usuario + ',\'' + respuesta[i].foto_usuario + '\');return false;">Editar</button>';
-                    recarga += '</td>';
-                    recarga += '<td>';
-                    // eliminar
-                    recarga += '<form method="post">';
-                    recarga += '<input type="hidden" name="_method" value="DELETE" id="deleteUsuario">';
-                    recarga += '<button class= "btn btn-danger" type="submit" value="Delete" onclick="eliminar(' + respuesta[i].id + ');return false;">Eliminar</button>';
-                    recarga += '</form>';
-                    recarga += '</td>';
-                    recarga += '</tr>';
-                }
-                table.innerHTML = recarga;
             }
+            table.innerHTML = recarga;
         }
+    }
     ajax.send(formData)
-} */
+}
 
 function crear() {
     var message = document.getElementById('message');
@@ -118,6 +116,7 @@ function eliminar(usuario_id) {
     var formData = new FormData();
     formData.append('_token', token);
     formData.append('_method', 'DELETE');
+    formData.append('id', usuario_id);
     /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
     /*
@@ -126,7 +125,7 @@ function eliminar(usuario_id) {
     POST -> Sí envía parámetros
     true -> asynchronous
     */
-    ajax.open("POST", "eliminar/" + usuario_id, true);
+    ajax.open("POST", "eliminar", true);
     ajax.onreadystatechange = function() {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var respuesta = JSON.parse(this.responseText);

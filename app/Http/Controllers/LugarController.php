@@ -38,7 +38,7 @@ class LugarController extends Controller
      */
     public function crearLugar(){
         $lugar=DB::select('select * from tbl_lugar INNER JOIN tbl_tipo ON tbl_lugar.id_tipo_fk = tbl_tipo.id_tipo INNER JOIN tbl_tags ON tbl_lugar.id_tag_fk = tbl_tags.id_tag');
-        $tipo=DB::select('select id_tipo, nombre_tipo from tbl_tipo');
+        $tipo=DB::select('select * from tbl_tipo');
         $tag=DB::select('select id_tag, nombre_tag from tbl_tags');
         return view('crearLugar', compact('lugar','tipo','tag'));
     }
@@ -48,6 +48,7 @@ class LugarController extends Controller
         $request->validate([
             'nombre_lugar'=>'required|string|max:30',
             'ubi_lugar'=>'required|string|max:150',
+            'direccion_lugar'=>'required|string|max:300',
             'descripcion_lugar'=>'required|string|max:300',
             'foto_lugar'=>'required|mimes:jpg,png,jpeg,webp,svg,gif',
             'id_tipo_fk'=>'required',
@@ -61,7 +62,7 @@ class LugarController extends Controller
 
         try{
             DB::beginTransaction();
-            DB::table('tbl_lugar')->insertGetId(["nombre_lugar"=>$datos['nombre_lugar'],"ubi_lugar"=>$datos['ubi_lugar'],"descripcion_lugar"=>$datos['descripcion_lugar'],"foto_lugar"=>$datos['foto_lugar'],"id_tipo_fk"=>$datos['id_tipo_fk'],"id_tag_fk"=>$datos['id_tag_fk']]);
+            DB::table('tbl_lugar')->insertGetId(["nombre_lugar"=>$datos['nombre_lugar'],"ubi_lugar"=>$datos['ubi_lugar'],"direccion_lugar"=>$datos['direccion_lugar'],"descripcion_lugar"=>$datos['descripcion_lugar'],"foto_lugar"=>$datos['foto_lugar'],"id_tipo_fk"=>$datos['id_tipo_fk'],"id_tag_fk"=>$datos['id_tag_fk']]);
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
@@ -79,8 +80,8 @@ class LugarController extends Controller
     public function show(Request $request)
     {
         /* $lugar=DB::table('tbl_lugar')->join('tbl_tipo','tbl_lugar.id_tipo_fk','=','tbl_tipo.id')->join('tbl_tags','tbl_lugar.id_tag_fk','=','tbl_tags.id')->select('*')->where('nombre_lugar like ?',['%'.$request->input('nombre_lugar').'%']); */
-        $lugar=DB::select('select * from tbl_lugar INNER JOIN tbl_tipo ON tbl_lugar.id_tipo_fk = tbl_tipo.id_tipo INNER JOIN tbl_tags ON tbl_lugar.id_tag_fk = tbl_tags.id_tag WHERE nombre_lugar like ?',['%'.$request->input('nombre_lugar').'%']);
-        return response()->json($lugar);
+        $lugares=DB::select('select * from tbl_lugar INNER JOIN tbl_tipo ON tbl_lugar.id_tipo_fk = tbl_tipo.id_tipo INNER JOIN tbl_tags ON tbl_lugar.id_tag_fk = tbl_tags.id_tag WHERE nombre_lugar like ?',['%'.$request->input('nombre_lugar').'%']);
+        return response()->json($lugares);
     }
 
     /**
@@ -103,15 +104,17 @@ class LugarController extends Controller
      */
     public function modificarLugar($id){
         $lugar=DB::table('tbl_lugar')->select()->where('id_lugar','=',$id)->first();
-        $tipo=DB::select('select id_tipo, nombre_tipo from tbl_tipo;');
+        $tipo=DB::select('select * from tbl_tipo;');
         $tag=DB::select('select id_tag, nombre_tag from tbl_tags;');
         return view('modificarLugar', compact('lugar','tipo','tag'));
     }
 
     public function modificarLugarPut(Request $request){
         $datos=$request->except('_token','_method');
+        
         if ($request->hasFile('foto_lugar')) {
             $foto = DB::table('tbl_lugar')->select('foto_lugar')->where('id_lugar','=',$request['id_lugar'])->first();
+            
             if ($foto->foto_lugar != null) {
                 Storage::delete('public/'.$foto->foto_lugar);
             }
@@ -123,7 +126,7 @@ class LugarController extends Controller
         
         try {
             DB::beginTransaction();
-            DB::table('tbl_lugar')->where('id','=',$datos['id'])->update($datos);
+            DB::table('tbl_lugar')->where('id_lugar','=',$datos['id_lugar'])->update($datos);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -138,11 +141,10 @@ class LugarController extends Controller
      * @param  \App\Models\Lugar  $lugar
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            DB::delete('delete from tbl_lugar where id=?',[$id]);
-            DB::delete('delete from tbl_tipo where id=?',[$id]);
+            DB::delete('delete from tbl_lugar where id_lugar=?',[$request->input('id')]);
             //return redirect()->route('clientes.index');
             return response()->json(array('resultado'=> 'OK'));
         } catch (\Throwable $th) {
