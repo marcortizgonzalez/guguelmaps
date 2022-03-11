@@ -10,7 +10,7 @@
 <body>
     <div>
         <form class="back" action="{{url('lugares')}}" method="GET">
-            <button><img src="../storage/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            <button><img src="../media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
         </form>
     </div>
     <center>
@@ -19,8 +19,8 @@
             {{method_field('PUT')}}
             <p>Nombre:</p>
             <input class="btn-outline-success" type="text" name="nombre_lugar" value="{{$lugar->nombre_lugar}}">
-            <p>Ubi:</p>
-            <input class="btn-outline-success" type="text" name="ubi_lugar" value="{{$lugar->ubi_lugar}}">
+            <p>Coordenadas:</p>
+            <input class="btn-outline-success" type="text" name="coordenadas_lugar" value="{{$lugar->coordenadas_lugar}}">
             <p>Descripción:</p>
             <input class="btn-outline-success" type="text" name="descripcion_lugar" value="{{$lugar->descripcion_lugar}}">
             <p>Foto:</p>
@@ -47,11 +47,11 @@
             </select>
             <br><br>
             <div>
-                <input type="hidden" name="id" value="{{$lugar->id_lugar}}">
+                <input type="hidden" name="id_lugar" value="{{$lugar->id_lugar}}">
                 <input class="btn btn-success" type="submit" value="Modificar">
             </div>
         </form>
     </center>
-    <img src="../storage/mapa.png" name="back" value="back" width="50px" height="50px">
+    <img src="../media/mapa.png" name="back" value="back" width="50px" height="50px">
 </body>
 </html>

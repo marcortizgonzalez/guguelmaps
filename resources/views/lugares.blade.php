@@ -13,10 +13,10 @@
 <body>
     <div>
         <form class="back" action="{{url('secciones')}}" method="GET">
-            <button><img src="./storage/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            <button><img src="./media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
         </form>
         <form class="add" action="{{url('crearLugar')}}" method="GET">
-            <button><img src="./storage/+.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            <button><img src="./media/+.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
         </form>
     </div>
     <center>
@@ -28,8 +28,8 @@
                         <input type="hidden" name="_method" value="PUT" id="modifLugar">
                         <span>Nombre</span>
                         <input type="text" name="nombre_lugar" id="nombreUpdate">
-                        <span>Ubicación</span>
-                        <input type="text" name="ubi_lugar" id="ubi_lugar">
+                        <span>coordenadascación</span>
+                        <input type="text" name="coordenadas_lugar" id="coordenadas_lugar">
                         <span>Telefono</span>
                         <input type="number" name="telf_lugar" id="telf_lugar">
                         <span>Descripción</span>
@@ -58,7 +58,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Ubicación</th>
+                    <th scope="col">Coordenadas</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Descripción</th>
@@ -71,7 +71,7 @@
                 <tr>
                     <td>{{$lugar->id_lugar}}</td>
                     <td>{{$lugar->nombre_lugar}}</td>
-                    <td>{{$lugar->ubi_lugar}}</td>
+                    <td>{{$lugar->coordenadas_lugar}}</td>
                     <td>{{$lugar->direccion_lugar}}</td>
                     <td>{{$lugar->telf_lugar}}</td>
                     <td>{{$lugar->descripcion_lugar}}</td>
@@ -102,11 +102,11 @@
         var span = document.getElementsByClassName("close")[0];
 
         // When the user clicks the button, open the modal 
-        function modalbox(id,nombre_lugar,ubi_lugar,telf_lugar,descripcion_lugar,foto_lugar,id_tipo_fk){
+        function modalbox(id,nombre_lugar,coordenadas_lugar,telf_lugar,descripcion_lugar,foto_lugar,id_tipo_fk){
             modal.style.display = "block";
             document.getElementById('tituloLugar').innerHTML = "Lugar Nº "+id;
             document.getElementById('nombreUpdate').value = nombre_lugar;
-            document.getElementById('ubi_lugar').value = ubi_lugar;
+            document.getElementById('coordenadas_lugar').value = coordenadas_lugar;
             document.getElementById('telf_lugar').value = telf_lugar;
             document.getElementById('descripcion_lugar').value = descripcion_lugar;
             document.getElementById('foto_lugar').value = foto_lugar;
@@ -128,7 +128,7 @@
             }
         }
     </script> --}}
-    <img src="./storage/mapa.png" name="back" value="back" width="50px" height="50px">
+    <img src="./media/mapa.png" name="back" value="back" width="50px" height="50px">
 </body>
 
 </html>

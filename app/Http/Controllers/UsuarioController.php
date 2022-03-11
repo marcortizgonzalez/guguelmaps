@@ -56,7 +56,7 @@ class UsuarioController extends Controller
             'id_rol_fk'=>'required|'
         ]);
         if($request->hasFile('foto_usuario')){
-            $datos['foto_usuario'] = $request->file('foto_usuario')->store('usuarios','public');
+            $datos['foto_usuario'] = substr($request->file('foto_usuario')->store('usuarios','public'),9);
         }else{
             $datos['foto_usuario'] = NULL;
         }
@@ -113,13 +113,8 @@ class UsuarioController extends Controller
         $datos=$request->except('_token','_method');
         if ($request->hasFile('foto_usuario')) {
             $foto = DB::table('tbl_usuario')->select('foto_usuario')->where('id_usuario','=',$request['id_usuario'])->first();
-            if ($foto->foto_usuario != null) {
-                Storage::delete('public/'.$foto->foto_usuario);
-            }
-            $datos['foto_usuario'] = $request->file('foto_usuario')->store('usuarios','public');
-        }else{
-            $foto = DB::table('tbl_usuario')->select('foto_usuario')->where('id_usuario','=',$request['id_usuario'])->first();
-            $datos['foto_usuario'] = $foto->foto_usuario;
+            Storage::delete('public/'.$foto->foto_usuario);
+            $datos['foto_usuario'] = substr($request->file('foto_usuario')->store('usuarios','public'),9);
         }
         
         try {
@@ -139,10 +134,10 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         try {
-            DB::delete('delete from tbl_usuario where id_usuario=?',[$request->input('id')]);
+            DB::delete('delete from tbl_usuario where id=?',[$id]);
             //return redirect()->route('clientes.index');
             return response()->json(array('resultado'=> 'OK'));
         } catch (\Throwable $th) {

@@ -11,13 +11,13 @@
     <center>
         <h1>ADMINISTRADOR</h1>
         <form action="{{url('gincana')}}" method="GET">
-            <button class="btn btn-primary" type="submit" name="Gincana" value="Gincana"><img src="./storage/gincana.png" class="btn btn-primary" type="submit" name="gincana" value="gincana"><p>GINCANA</p></button>
+            <button class="btn btn-primary" type="submit" name="Gincana" value="Gincana"><img src="./media/gincana.png" class="btn btn-primary" type="submit" name="gincana" value="gincana"><p>GINCANA</p></button>
         </form>
         <form action="{{url('usuarios')}}" method="GET">
-            <button class="btn btn-primary" type="submit" name="usuarios" value="usuarios"><img src="./storage/usuario.png" class="btn btn-primary" type="submit" name="usuarios" value="usuarios"><p>USUARIOS</p></button>
+            <button class="btn btn-primary" type="submit" name="usuarios" value="usuarios"><img src="./media/usuario.png" class="btn btn-primary" type="submit" name="usuarios" value="usuarios"><p>USUARIOS</p></button>
         </form>
         <form action="{{url('lugares')}}" method="GET">
-            <button class="btn btn-primary" type="submit" name="lugar" value="lugar"><img src="./storage/mapa.png" class="btn btn-primary" type="submit" name="lugar" value="lugar"><p>MAPA</p></button>
+            <button class="btn btn-primary" type="submit" name="lugar" value="lugar"><img src="./media/mapa.png" class="btn btn-primary" type="submit" name="lugar" value="lugar"><p>MAPA</p></button>
         </form>
     </center>
 </body>

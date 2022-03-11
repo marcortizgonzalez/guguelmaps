@@ -47,7 +47,7 @@ class LugarController extends Controller
         $datos = $request->except('_token');
         $request->validate([
             'nombre_lugar'=>'required|string|max:30',
-            'ubi_lugar'=>'required|string|max:150',
+            'coordenadas_lugar'=>'required|string|max:150',
             'direccion_lugar'=>'required|string|max:300',
             'descripcion_lugar'=>'required|string|max:300',
             'foto_lugar'=>'required|mimes:jpg,png,jpeg,webp,svg,gif',
@@ -55,14 +55,14 @@ class LugarController extends Controller
             'id_tag_fk'=>'required'
         ]);
         if($request->hasFile('foto_lugar')){
-            $datos['foto_lugar'] = $request->file('foto_lugar')->store('public');
+            $datos['foto_lugar'] = substr($request->file('foto_lugar')->store('lugar','public'),6);
         }else{
             $datos['foto_lugar'] = NULL;
         }
 
         try{
             DB::beginTransaction();
-            DB::table('tbl_lugar')->insertGetId(["nombre_lugar"=>$datos['nombre_lugar'],"ubi_lugar"=>$datos['ubi_lugar'],"direccion_lugar"=>$datos['direccion_lugar'],"descripcion_lugar"=>$datos['descripcion_lugar'],"foto_lugar"=>$datos['foto_lugar'],"id_tipo_fk"=>$datos['id_tipo_fk'],"id_tag_fk"=>$datos['id_tag_fk']]);
+            DB::table('tbl_lugar')->insertGetId(["nombre_lugar"=>$datos['nombre_lugar'],"coordenadas_lugar"=>$datos['coordenadas_lugar'],"direccion_lugar"=>$datos['direccion_lugar'],"descripcion_lugar"=>$datos['descripcion_lugar'],"foto_lugar"=>$datos['foto_lugar'],"id_tipo_fk"=>$datos['id_tipo_fk'],"id_tag_fk"=>$datos['id_tag_fk']]);
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
@@ -111,17 +111,10 @@ class LugarController extends Controller
 
     public function modificarLugarPut(Request $request){
         $datos=$request->except('_token','_method');
-        
         if ($request->hasFile('foto_lugar')) {
             $foto = DB::table('tbl_lugar')->select('foto_lugar')->where('id_lugar','=',$request['id_lugar'])->first();
-            
-            if ($foto->foto_lugar != null) {
-                Storage::delete('public/'.$foto->foto_lugar);
-            }
-            $datos['foto_lugar'] = $request->file('foto_lugar')->store('lugar','public');
-        }else{
-            $foto = DB::table('tbl_lugar')->select('foto_lugar')->where('id_lugar','=',$request['id_lugar'])->first();
-            $datos['foto_lugar'] = $foto->foto_lugar;
+            Storage::delete('public/'.$foto->foto_lugar);
+            $datos['foto_lugar'] = substr($request->file('foto_lugar')->store('lugar','public'),6);
         }
         
         try {

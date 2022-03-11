@@ -92,6 +92,8 @@ function crear() {
             document.getElementById('contra_usuario').value = "";
             document.getElementById('telf_usuario').value = "";
             document.getElementById('foto_usuario').value = "";
+            document.getElementById('foto_usuario').value = "";
+            document.getElementById('id_rol_fk').value = "";
             document.getElementById('nombre_usuario').focus();
         }
     }
@@ -100,100 +102,47 @@ function crear() {
 
 function eliminar(usuario_id) {
     var message = document.getElementById('message');
-    /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
-
-    /* 
-    Obtener elemento/s que se pasarán como parámetros: token, method, inputs... 
-    var token = document.getElementById('token').getAttribute("content");
- 
-    Usar el objeto FormData para guardar los parámetros que se enviarán:
-    var formData = new FormData();
-    formData.append('_token', token);
-    formData.append('clave', valor);
-    */
     var token = document.getElementById('token').getAttribute("content");
     var method = document.getElementById('deleteUsuario').value;
     var formData = new FormData();
     formData.append('_token', token);
     formData.append('_method', 'DELETE');
-    formData.append('id', usuario_id);
-    /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    /*
-    ajax.open("method", "rutaURL", true);
-    GET  -> No envía parámetros
-    POST -> Sí envía parámetros
-    true -> asynchronous
-    */
-    ajax.open("POST", "eliminar", true);
+    ajax.open("POST", "eliminar/" + usuario_id, true);
     ajax.onreadystatechange = function() {
-            if (ajax.readyState == 4 && ajax.status == 200) {
-                var respuesta = JSON.parse(this.responseText);
-                if (respuesta.resultado == "OK") {
-                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    //    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
-                    message.innerHTML = '<p>Usuario eliminado correctamente.</p>';
-
-                } else {
-                    //    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
-                    message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
-                }
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            if (respuesta.resultado == "OK") {
+                message.innerHTML = '<p>Usuario eliminado correctamente.</p>';
+            } else {
+                message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
             }
-            filtro();
         }
-        /*
-        send(string)->Sends the request to the server (used for POST)
-        */
+        filtro();
+    }
     ajax.send(formData)
 }
 
 function actualizar() {
     var message = document.getElementById('message');
-    /* Obtener elemento html donde introduciremos la recarga (datos o mensajes) */
-
-    /* 
-    Obtener elemento/s que se pasarán como parámetros: token, method, inputs... 
-    var token = document.getElementById('token').getAttribute("content");
- 
-    Usar el objeto FormData para guardar los parámetros que se enviarán:
-    var formData = new FormData();
-    formData.append('_token', token);
-    formData.append('clave', valor);
-    */
     var token = document.getElementById('token').getAttribute("content");
     var method = document.getElementById('modifUsuario').value;
     var formData = new FormData(document.getElementById('formUpdate'));
     formData.append('_token', token);
     formData.append('_method', method);
-    /* Inicializar un objeto AJAX */
     var ajax = objetoAjax();
-    /*
-    ajax.open("method", "rutaURL", true);
-    GET  -> No envía parámetros
-    POST -> Sí envía parámetros
-    true -> asynchronous
-    */
     ajax.open("POST", "actualizar", true);
     ajax.onreadystatechange = function() {
-            if (ajax.readyState == 4 && ajax.status == 200) {
-                var respuesta = JSON.parse(this.responseText);
-                if (respuesta.resultado == "OK") {
-                    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    //    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
-                    message.innerHTML = '<p>Usuario modificado correctamente.</p>';
-
-                } else {
-                    //    /* creación de estructura: la estructura que creamos no ha de contener código php ni código blade*/
-                    /* utilizamos innerHTML para introduciremos la recarga en el elemento html pertinente */
-                    message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
-                }
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var respuesta = JSON.parse(this.responseText);
+            if (respuesta.resultado == "OK") {
+                message.innerHTML = '<p>Usuario modificado correctamente.</p>';
+            } else {
+                message.innerHTML = 'Ha habido un error:' + respuesta.resultado;
             }
-            filtro();
         }
-        /*
-        send(string)->Sends the request to the server (used for POST)
-        */
+        filtro();
+    }
     ajax.send(formData)
 
 }

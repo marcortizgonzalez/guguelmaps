@@ -10,7 +10,7 @@
 <body>
     <div>
         <form class="back" action="{{url('lugares')}}" method="GET">
-            <button><img src="./storage/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            <button><img src="./media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
         </form>
     </div>
     <center>
@@ -23,9 +23,9 @@
                     <br>
                     {{$message}}
                 @enderror
-            <p>Ubicación:</p>
-                <input class="btn-outline-success" type="text" name="ubi_lugar">
-                @error('ubi_lugar')
+            <p>Coordenadas:</p>
+                <input class="btn-outline-success" type="text" name="coordenadas_lugar">
+                @error('coordenadas_lugar')
                     <br>
                     {{$message}}
                 @enderror
@@ -69,6 +69,6 @@
             </div>
         </form>
     </center>
-    <img src="./storage/mapa.png" name="back" value="back" width="50px" height="50px">
+    <img src="./media/mapa.png" name="back" value="back" width="50px" height="50px">
 </body>
 </html>

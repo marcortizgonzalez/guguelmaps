@@ -10,7 +10,7 @@
 <body>
     <div>
         <form class="back" action="{{url('usuarios')}}" method="GET">
-            <button><img src="./storage/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            <button><img src="./media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
         </form>
     </div>
     <center>
@@ -70,6 +70,6 @@
             </div>
         </form>
     </center>
-    <img src="./storage/usuario.png" name="back" value="back" width="50px" height="50px">
+    <img src="./media/usuario.png" name="back" value="back" width="50px" height="50px">
 </body>
 </html>

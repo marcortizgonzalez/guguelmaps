@@ -10,7 +10,7 @@
 <body>
     <div>
         <form class="back" action="{{url('usuarios')}}" method="GET">
-            <button><img src="../storage/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            <button><img src="../media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
         </form>
     </div>
     <center>
@@ -39,7 +39,7 @@
             </select>
             <br><br>
             <div>
-                <input type="hidden" name="id" value="{{$usuario->id_usuario}}">
+                <input type="hidden" name="id_usuario" value="{{$usuario->id_usuario}}">
                 <input class="btn btn-success" type="submit" value="Modificar">
             </div>
         </form>
