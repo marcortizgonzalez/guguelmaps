@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    /* font family */
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #f8f4d7;
+    background-attachment: fixed;
+    padding: 15px 20px;
+    display: flex;
+    flex-flow: column;
+}
+
+h1 {
+    color: #784d2a;
+}
+
+img {
+    height: 200px;
+    width: 200px;
+}
