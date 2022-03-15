@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lugar;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -138,10 +139,26 @@ class LugarController extends Controller
     {
         try {
             DB::delete('delete from tbl_lugar where id_lugar=?',[$request->input('id')]);
+
+            $lugar=DB::select('select * from tbl_lugar');
+            $collectionLugar = collect(['lugar' => $lugar]);
+            Storage::disk('public')->put('lugares.json', $collectionLugar);
+
+            return response()->json($lugar, 200, []);
             //return redirect()->route('clientes.index');
             return response()->json(array('resultado'=> 'OK'));
         } catch (\Throwable $th) {
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
         }
+    }
+
+    public function CrearJson(){
+        $lugar=DB::select('select * from tbl_lugar');
+        
+        $collectionLugar = collect([$lugar]);
+
+        Storage::disk('public')->put('lugares.json', $collectionLugar);
+
+        return response()->json($lugar, 200, []);
     }
 }

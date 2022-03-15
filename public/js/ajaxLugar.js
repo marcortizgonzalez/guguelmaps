@@ -201,3 +201,28 @@ function actualizar() {
     ajax.send(formData)
 
 }
+
+/* function JSON() {
+    ajax.open("GET", "JSON", true);
+    $(document).ready(function() {
+        var url = "/app/Http/Controllers/LugarController.php";
+        $("#tablajson tbody").html("");
+        $.getJSON(url, function(lugares) {
+            $.each(lugares, function(i, lugar) {
+                var newRow =
+                    "<tr>" +
+                    "<td>" + lugar.id_lugar + "</td>" +
+                    "<td>" + lugar.nombre_lugar + "</td>" +
+                    "<td>" + lugar.coordenadas_lugar + "</td>" +
+                    "<td>" + lugar.direccion_lugar + "</td>" +
+                    "<td>" + lugar.telf_lugar + "</td>" +
+                    "<td>" + lugar.descripcion_lugar + "</td>" +
+                    "<td>" + lugar.foto_lugar + "</td>" +
+                    "<td>" + lugar.nombre_tipo + "</td>" +
+                    "<td>" + lugar.nombre_tag + "</td>" +
+                    "</tr>";
+                $(newRow).appendTo("#tablajson tbody");
+            });
+        });
+    });
+} */

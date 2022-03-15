@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('map');
 });
 
+Route::get('crearJSON',[LugarController::class,'CrearJson']);
+
 Route::get('secciones',[UsuarioController::class,'secciones']);
 
 /*------------- Usuarios ----------------*/
@@ -47,3 +49,5 @@ Route::get('/modificarLugar/{id}', [LugarController::class, 'modificarLugar']);
 Route::put('/modificarLugar',[LugarController::class, 'modificarLugarPut']);
 //Eliminar
 Route::delete('eliminar',[LugarController::class,'destroy']);
+//JSON
+/* Route::get('JSON',[LugarController::class,'CrearUbiJson']); */
