@@ -25,7 +25,14 @@ class LugarController extends Controller
     }
 
     public function index3()
-    {
+    {   
+        if (session()->has('id_usuario_tag')) {
+            $id_usuario_tag = session()->get('id_usuario_tag');
+        }
+
+        //Para pasar foto usuario
+        $fotolist = DB::select("SELECT foto_usuario
+        FROM tbl_usuario WHERE id_usuario=$id_usuario_tag");
         //Para pasar el tipo
         $tipolist = DB::select("SELECT *
         FROM tbl_tipo");
@@ -33,9 +40,9 @@ class LugarController extends Controller
         $taglist = DB::select("SELECT *
         FROM tbl_tags");
         //Para pasar el tag personalizado
-        $tagperslist = DB::select("SELECT *
-        FROM tbl_tags_usuario WHERE id_usu_tag_usuario=1");
-        return view("indexLog",compact("tipolist","taglist","tagperslist"));
+        $tagusulist = DB::select("SELECT *
+        FROM tbl_tags_usuario WHERE id_usu_tag_usuario=$id_usuario_tag");
+        return view("indexLog",compact("fotolist","tipolist","taglist","tagusulist"));
     }
 
         /* MOSTRAR LUGARES */
@@ -94,6 +101,16 @@ class LugarController extends Controller
             /* $lugar=DB::table('tbl_lugar')->join('tbl_tipo','tbl_lugar.id_tipo_fk','=','tbl_tipo.id')->join('tbl_tags','tbl_lugar.id_tag_fk','=','tbl_tags.id')->select('*')->where('nombre_lugar like ?',['%'.$request->input('nombre_lugar').'%']); */
             $lugares=DB::select('select * from tbl_lugar INNER JOIN tbl_tipo ON tbl_lugar.id_tipo_fk = tbl_tipo.id_tipo INNER JOIN tbl_tags ON tbl_lugar.id_tag_fk = tbl_tags.id_tag');
             return response()->json($lugares);
+        }
+
+        /* AJAX MOSTRAR TAG USER */
+        public function leerController2(){
+            if (session()->has('id_usuario_tag')) {
+                $id_usuario_tag = session()->get('id_usuario_tag');
+            }
+            /* $lugar=DB::table('tbl_lugar')->join('tbl_tipo','tbl_lugar.id_tipo_fk','=','tbl_tipo.id')->join('tbl_tags','tbl_lugar.id_tag_fk','=','tbl_tags.id')->select('*')->where('nombre_lugar like ?',['%'.$request->input('nombre_lugar').'%']); */
+            $tagusulist = DB::select("SELECT nombre_tag_usuario FROM tbl_tags_usuario WHERE id_usu_tag_usuario=$id_usuario_tag");
+            return response()->json($tagusulist);
         }
     
         /* MODIFICAR LUGAR */

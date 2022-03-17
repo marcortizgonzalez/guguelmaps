@@ -47,6 +47,28 @@ class TagController extends Controller
         return redirect('tags');
     }
 
+    public function creartagusuController(Request $request){
+        try {
+            if (session()->has('id_usuario_tag')) {
+                $id_usuario_tag = session()->get('id_usuario_tag');
+            }
+            DB::insert('insert into tbl_tags_usuario (nombre_tag_usuario, id_usu_tag_usuario) values (?,?)',[$request->input('nombre'),$id_usuario_tag]);
+            
+            //JSON TAG PERSONAL
+            $nombre_usuario = session()->get('nombre_usuario');
+            $telf_usuario = session()->get('telf_usuario');
+            $enlace=($nombre_usuario.$telf_usuario.".json");
+            $tagJSON=DB::select('select nombre_tag_usuario, ubicacion_tag_usuario from tbl_tags_usuario WHERE id_usu_tag_usuario = '.$id_usuario_tag.'');
+            $collectionTag = collect([$tagJSON]);
+            Storage::disk('userJSON')->put($enlace, $collectionTag);
+            //JSON TAG PERSONAL
+            return response()->json(array('resultado'=> 'OK'));
+
+        } catch (\Throwable $th) {
+            return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
+        }
+    }
+
 
 
     /* AJAX MOSTRAR */

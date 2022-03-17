@@ -15,7 +15,7 @@ body {
 
 .loginbox {
     width: 600px;
-    height: 480px;
+    height: 750px;
     background: white;
     color: black;
     top: 50%;
@@ -54,6 +54,8 @@ h1 {
 }
 
 .loginbox input[type="text"],
+.loginbox input[type="email"],
+.loginbox input[type="number"],
 input[type="password"] {
     border: none;
     border-bottom: 1px solid black;
@@ -123,6 +125,6 @@ input[type="password"] {
 @media screen and (max-width:700px) {
     .loginbox {
         width: 73%;
-        height: 65%;
+        height: 90%;
     }
 }

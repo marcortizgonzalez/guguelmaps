@@ -5,25 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="{!! asset('css/styles_login.css') !!}">
+  <link rel="shortcut icon" href="../public/media/logo2.png">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <title>Login</title>
 </head>
 
-<a href="{{ url('register')}}">
-  <p><b style="padding-right: 10px;" onclick="">REGISTRARME</b></p>
-</a>
 
 <a href="{{ url('')}}">
-  <p><b style="padding-right: 10px;" onclick="">INICIO</b></p>
+  <i class="fad fa-angle-double-left fa-3x" style="padding: 10px 10px;"></i>
 </a>
 
-<body class="login">
-  <div class="row flex-cv">
-    <div class="cuadro_login">
+<body>
+  <div class="loginbox">
+    <img src="../public/media/logo.png" class="avatar">
+    <h1>INICIO DE SESIÓN</h1>
       <form action="{{url('login')}}" method="POST">
           @csrf
-          <br>
-          <h1>INICIO DE SESIÓN</h1>
-          <br>
           <div class="form-group">
             <p>Email:</p>
             <div>
@@ -47,10 +44,13 @@
           </div>
           <br><br>
           <div class="form-group">
-            <button class= "botonlogin" type="submit" value="register">Iniciar Sesión</button>
+            <input type="submit" value="Iniciar Sesión"></input>
           </div>
       </form>
-    </div>
+      <br>
+      <a href="{{ url('register')}}">
+        <p><b style="padding-right: 10px; font-size:1.7vh;" onclick="">No estás registrado? Regístrate</b></p>
+      </a>
   </div>
 </body>
 </html>

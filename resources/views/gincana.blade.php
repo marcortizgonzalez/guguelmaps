@@ -1,3 +1,9 @@
+@if (!Session::get('email_usuario')||Session::get('id_rol_fk') != "1")
+    <?php
+        //Si la session no esta definida te redirige al login, la session se crea en el método.
+        return redirect()->to('')->send();
+    ?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +14,7 @@
     <script src="js/ajaxGincana.js"></script>
     <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="../public/media/logo2.png">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Laravel Gincanas</title>
 </head>

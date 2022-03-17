@@ -1,3 +1,10 @@
+.avatar {
+    width: 50px;
+    height: 200px;
+    border-radius: 50%;
+    left: calc(50% - 50px);
+}
+
 .hide {
     display: none;
 }
@@ -48,7 +55,7 @@
     box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
 }
 
-:root {
+ :root {
     --first-color: #19c673;
     --second-color: #05a357;
     --third-color: #f6f0ea;
@@ -75,16 +82,16 @@
     --x: calc(100% * (var(--value) / var(--stars)));
 }
 
-::-webkit-scrollbar {
+ ::-webkit-scrollbar {
     width: 20px;
 }
 
-::-webkit-scrollbar-thumb {
+ ::-webkit-scrollbar-thumb {
     background: var(--first-color);
     border-radius: 1px;
 }
 
-::-webkit-scrollbar-track {
+ ::-webkit-scrollbar-track {
     background-color: var(--third-color);
 }
 
@@ -236,12 +243,3 @@ body {
 
 
 /*# sourceMappingURL=styles.css.map */
-
-.input_tag {
-    background-color: #fffb24;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 15px;
-    width: 50%;
-    height: 40px;
-    text-align: center;
-}

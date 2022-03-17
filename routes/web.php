@@ -22,8 +22,11 @@ use App\Http\Controllers\TipoController;
 Route::get('',[LugarController::class,'index2']);
 
 Route::get('mapaLog',[LugarController::class,'index3']);
+Route::post('leertaguser',[LugarController::class,'leerController2']);
+Route::post('creartagusu',[TagController::class, 'creartagusuController']);
 
 
+/*------------- Admin ----------------*/
 Route::get('secciones',[UsuarioController::class,'secciones']);
 
 

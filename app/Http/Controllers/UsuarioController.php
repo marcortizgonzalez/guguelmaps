@@ -187,15 +187,40 @@ class UsuarioController extends Controller
                 }else{
                     $request->session()->put('id_rol_fk', $rolUser);
                     
-                    //JSON
+                    //JSON TAG PERSONAL
                     $tagJSON=DB::select('select nombre_tag_usuario, ubicacion_tag_usuario from tbl_tags_usuario WHERE id_usu_tag_usuario = '.$id_usuario_tag.'');
                     $collectionTag = collect([$tagJSON]);
                     Storage::disk('userJSON')->put($enlace, $collectionTag);
-                    //JSON
+                    //JSON TAG PERSONAL
 
-                    return redirect("mapaLog");
-                    $usuario=DB::table('tbl_usuario')->select()->where('id_usuario','=',$id_usuario_tag)->first();
-                    return view('mapaLog', compact('usuario'));
+                    //JSON LUGAR
+                    $lugarJSON=DB::select('select * from tbl_lugar');
+                    $collectionLugar = collect([$lugarJSON]);
+                    Storage::disk('public')->put('lugares.json', $collectionLugar);
+                    //return response()->json($lugarJSON, 200, []);
+                    //JSON LUGAR
+
+                    //JSON GINCANA
+                    $gincanaJSON=DB::select('select * from tbl_gincana');
+                    $collectionGincana = collect([$gincanaJSON]);
+                    Storage::disk('public')->put('gincana.json', $collectionGincana);
+                    //return response()->json($gincanaJSON, 200, []);
+                    //JSON GINCANA
+
+                    //JSON TAG
+                    $tagJSON=DB::select('select * from tbl_tags');
+                    $collectionTag = collect([$tagJSON]);
+                    Storage::disk('public')->put('tag.json', $collectionTag);
+                    //return response()->json($tagJSON, 200, []);
+                    //JSON TAG
+
+                    //return redirect("mapaLog");
+                    $id_usuario_tag = $userId->id_usuario;
+                    $nombre_usuario = $userId->nombre_usuario;
+                    session()->put('nombre_usuario', $nombre_usuario);
+                    session()->put('id_usuario_tag', $id_usuario_tag);
+                    session()->put('telf_usuario', $telf_usuario);
+                    return redirect('mapaLog');
                 }
                 /* return redirect('home'); */
             }else{

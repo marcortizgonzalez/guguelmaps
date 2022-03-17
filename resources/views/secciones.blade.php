@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{!! asset('css/style_secciones.css') !!}">
+    <link rel="shortcut icon" href="../public/media/logo2.png">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Secciones Admin</title>
 </head>
@@ -18,21 +19,22 @@
 
     <div class="header">
         <a href="{{url('logout')}}"><img class="logo" src="./media/logo2.png" alt="logo"></a>
+        
+        <div >
+            <a class="logout" href="{{ url('logout')}}"><i class="fad fa-sign-out fa-2x"></i></a>
+        </div>
 
         <br>
-    <center>
-        <h1>ADMIN CONTROL PANEL</h1>
-    </center>
+        <center>
+            <h1>ADMIN CONTROL PANEL</h1>
+        </center>
 
-    <br>
-    <marquee behavior="scroll" direction="right" scrolldelay="1" class="bienvenido">Bienvenido <?php echo Session::get('email_usuario'); ?></marquee>
-    <br>
-    <br>
+        <br>
+        <marquee behavior="scroll" direction="right" scrolldelay="1" class="bienvenido">Bienvenido <?php echo Session::get('email_usuario'); ?></marquee>
+        <br>
+        <br>
   </div>
 
-    <a href="{{ url('logout')}}">
-        <span><i class="fad fa-sign-out"></i></span>
-    </a>
 
     <div class="one-column">
         <div class="four-column">

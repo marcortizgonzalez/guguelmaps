@@ -42,7 +42,7 @@ function leerJS() {
             recarga += '<th scope="col"><b>Descripción</b></th>';
             recarga += '<th scope="col"><b>Foto</b></th>';
             recarga += '<th scope="col"><b>Tipo</b></th>';
-            recarga += '<th scope="col"><b>Tag</b></th>';
+            // recarga += '<th scope="col"><b>Tag</b></th>';
             recarga += '<th scope="col" colspan="2"><b>Acciones</b></th>';
             recarga += '</tr>';
             for (let i = 0; i < respuesta.length; i++) {
@@ -55,7 +55,7 @@ function leerJS() {
                 recarga += '<td>' + respuesta[i].descripcion_lugar + '</td>';
                 recarga += '<td><img src="storage/lugar/' + respuesta[i].foto_lugar + '" style="width:100px; height=100px;"></td>'
                 recarga += '<td>' + respuesta[i].nombre_tipo + '</td>';
-                recarga += '<td>' + respuesta[i].nombre_tag + '</td>';
+                // recarga += '<td>' + respuesta[i].nombre_tag + '</td>';
                 recarga += '<td><form action="./modificarLugar/' + respuesta[i].id_lugar + '" method="GET">';
                 recarga += '<button class="btn btn-secondary" type="submit" name="Modificar" value="Modificar">Editar</button>';
                 recarga += '</form></td>';

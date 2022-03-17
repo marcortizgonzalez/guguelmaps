@@ -25,6 +25,7 @@
     <script src="../public/js/js.js"></script>
     <script src="../public/js/modal.js"></script>
     <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="shortcut icon" href="../public/media/logo2.png">
 
     <title>Guguel Maps</title>
     <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
@@ -67,7 +68,7 @@
                 </div>
             </div>
             <!-- Para crear un tag personal -->
-            <div class="create-tag"><span><i class="fad fa-plus" style="cursor: pointer"></i></span></div>
+            {{-- <div class="create-tag"><span><i class="fad fa-plus" style="cursor: pointer"></i></span></div> --}}
         </div>
     </div>
     <!-- Mapa -->

@@ -30,12 +30,28 @@
     <!-- ||||||||||CUSTOM||||||||||| -->
     <script src="../public/js/js.js"></script>
     <script src="../public/js/modal.js"></script>
+    <script src="../public/js/ajaxTagUser.js"></script>
     <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="shortcut icon" href="../public/media/logo2.png">
 
     <title>Guguel Maps</title>
     <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
 </head>
 <!-- pagina principal -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="" id="formulario" onsubmit="crearTagJS(); return false;">
+          <span>Crear Nuevo TAG</span>
+          <input type="text" name="nombre_tag_usuario" id="nombre_tag_usuario" class="" required>
+          <input type="submit" value="Crear">
+      </form>
+  </div>
+</div>
 
 <body class="main-page">
     <!-- div donde se encuantra todo el mesnu.. tags, usuario... El contenido que se superpone con el mapa -->
@@ -72,18 +88,23 @@
                     @endforeach
                 </div>
 
-                <div class="content-tags">
-                    <!-- Cada tags debe de venir de un foreach -->
-                    @foreach($tagperslist as $tag)
-                    <div class="tag">
-                        <!-- el <i> debe ser el icono y el span el nombre del tag -->
-                            <i class="fad fa-tag"></i><span class="txt-tag">&nbsp{{$tag->nombre_tag_usuario}}</span>
+                {{-- AJAX TAGS --}}
+                <table id="main">
+                </table>
+                {{-- <div class="table" id="table">
+                    <div class="content-tags">
+                        @foreach($tagusulist as $tagusu)
+                        <div class="tag">
+                            <i class="fad fa-tag"></i><span class="txt-tag">&nbsp{{$tagusu->nombre_tag_usuario}}</span>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
+                <div class="create-tag"><span><i class="fad fa-plus" style="cursor: pointer"></i></span></div> --}}
+                {{-- AJAX TAGS --}}
+
             </div>
-            <!-- Para crear un tag personal -->
-            <div class="create-tag"><span><i class="fad fa-plus" style="cursor: pointer"></i></span></div>
+            
         </div>
     </div>
     <!-- Mapa -->
@@ -93,7 +114,7 @@
         <div class="content_bottom-menu">
             <!-- boton para hacer logout -->
             <a href="{{ url('logout')}}">
-            <div class="btn-logout"><span><i class="fad fa-sign-out"></i></span></div>
+            <div class="btn-logout"><span><i class="fad fa-sign-out"></i> Logout</span></div>
             </a>
             <!-- Boton para unirse a grupo o crear grupo -->
             <div class="btn-group">
@@ -104,15 +125,18 @@
             <!-- boton para iniciar sesion o para mostrar los datos de la sesion -->
             <div class="user-profile">
                 <div class="content-profile">
-                    {{-- <div class="userdata">
+                    <div class="userdata">
                         <!-- nombre del usuario -->
-                        <div class="user-name">Marc Ortiz</div>
+                        <div class="user-name">Name: <?php echo Session::get('nombre_usuario'); ?></div>
                         <!-- grupo del usuario -->
-                        <div class="user-group">Los panitas</div>
-                    </div> --}}
+                        <div class="user-group"><?php echo Session::get('email_usuario'); ?></div>
+                    </div>
                     <div class="user-avatar">
                         <!-- foto del usuario -->
-                        <img src="../public/media\avatar.png" alt="Avatar">
+                        @foreach($fotolist as $foto)
+                        {{-- <img src="../public/media\avatar.png" alt="Avatar"> --}}
+                        <img src="../public/storage/usuarios\{{$foto->foto_usuario}}" alt="Avatar" class="avatar">
+                        @endforeach
                     </div>
                 </div>
             </div>
