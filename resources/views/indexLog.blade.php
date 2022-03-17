@@ -1,3 +1,9 @@
+@if (!Session::get('email_usuario'))
+    <?php
+        //Si la session no esta definida te redirige al login, la session se crea en el método.
+        return redirect()->to('')->send();
+    ?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +11,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiempo</title>
     <!-- iconos FontAwesome-->
-    <script type="text/javascript" src="js/iconos_g.js"></script>
+    <script type="text/javascript" src="../public/js/iconos_g.js"></script>
     <!--JQUERY-->
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="../public/js/jquery.js"></script>
     <!--COOKIES-->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.0/src/js.cookie.min.js"></script>
     <!-- sweetAlert -->
@@ -20,16 +25,33 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <!-- owl carousel -->
-    <script src="js/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <script src="../public/js/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="../public/css/owl.carousel.min.css">
     <!-- ||||||||||CUSTOM||||||||||| -->
-    <script src="js/js.js"></script>
-    <script src="js/modal.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <script src="../public/js/js.js"></script>
+    <script src="../public/js/modal.js"></script>
+    <script src="../public/js/ajaxTagUser.js"></script>
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="shortcut icon" href="../public/media/logo2.png">
 
-    <title>Ejercicios</title>
+    <title>Guguel Maps</title>
+    <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
 </head>
 <!-- pagina principal -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="" id="formulario" onsubmit="crearTagJS(); return false;">
+          <span>Crear Nuevo TAG</span>
+          <input type="text" name="nombre_tag_usuario" id="nombre_tag_usuario" class="" required>
+          <input type="submit" value="Crear">
+      </form>
+  </div>
+</div>
 
 <body class="main-page">
     <!-- div donde se encuantra todo el mesnu.. tags, usuario... El contenido que se superpone con el mapa -->
@@ -47,59 +69,42 @@
             <div class="main-tags">
                 <div class="content-tags">
                     <!-- Cada tags debe de venir de un foreach -->
+                    @foreach($tipolist as $tipo)
                     <div class="tag">
                         <!-- el <i> debe ser el icono y el span el nombre del tag -->
-                        <i class="fad fa-utensils"></i><span class="txt-tag">Comida</span>
+                        <i id="{{$tipo->nombre_tipo}}" class="{{$tipo->icono_tipo}}"></i><span class="txt-tag">&nbsp{{$tipo->nombre_tipo}}</span>
                     </div>
-                    <div class="tag">
-                        <i class="fad fa-utensils-alt"></i><span class="txt-tag">Comida</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-archway"></i><span class="txt-tag">Monumento</span>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="user-tags">
                 <div class="content-tags">
                     <!-- Cada tags debe de venir de un foreach -->
+                    @foreach($taglist as $tag)
                     <div class="tag">
                         <!-- el <i> debe ser el icono y el span el nombre del tag -->
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
+                        <i id="{{$tag->nombre_tag}}" class="{{$tag->icono_tag}}"></i><span class="txt-tag">&nbsp{{$tag->nombre_tag}}</span>
                     </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Bocatas</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Caro</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Cuki</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
-                    </div>
-                    <div class="tag">
-                        <i class="fad fa-user-tag"></i><span class="txt-tag">Custom 1</span>
+                    @endforeach
+                </div>
+
+                {{-- AJAX TAGS --}}
+                <table id="main">
+                </table>
+                {{-- <div class="table" id="table">
+                    <div class="content-tags">
+                        @foreach($tagusulist as $tagusu)
+                        <div class="tag">
+                            <i class="fad fa-tag"></i><span class="txt-tag">&nbsp{{$tagusu->nombre_tag_usuario}}</span>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
+                <div class="create-tag"><span><i class="fad fa-plus" style="cursor: pointer"></i></span></div> --}}
+                {{-- AJAX TAGS --}}
+
             </div>
-            <!-- Para crear un tag personal -->
-            <div class="create-tag"><span><i class="fad fa-plus"></i></span></div>
+            
         </div>
     </div>
     <!-- Mapa -->
@@ -108,7 +113,9 @@
     <div class="bottom-menu">
         <div class="content_bottom-menu">
             <!-- boton para hacer logout -->
-            <div class="btn-logout"><span><i class="fad fa-sign-out"></i></span></div>
+            <a href="{{ url('logout')}}">
+            <div class="btn-logout"><span><i class="fad fa-sign-out"></i> Logout</span></div>
+            </a>
             <!-- Boton para unirse a grupo o crear grupo -->
             <div class="btn-group">
                 <button class="btn-grupo">
@@ -120,13 +127,16 @@
                 <div class="content-profile">
                     <div class="userdata">
                         <!-- nombre del usuario -->
-                        <div class="user-name">Marc Ortiz</div>
+                        <div class="user-name">Name: <?php echo Session::get('nombre_usuario'); ?></div>
                         <!-- grupo del usuario -->
-                        <div class="user-group">Los panitas</div>
+                        <div class="user-group"><?php echo Session::get('email_usuario'); ?></div>
                     </div>
                     <div class="user-avatar">
                         <!-- foto del usuario -->
-                        <img src="media\avatar.png" alt="Avatar">
+                        @foreach($fotolist as $foto)
+                        {{-- <img src="../public/media\avatar.png" alt="Avatar"> --}}
+                        <img src="../public/storage/usuarios\{{$foto->foto_usuario}}" alt="Avatar" class="avatar">
+                        @endforeach
                     </div>
                 </div>
             </div>
