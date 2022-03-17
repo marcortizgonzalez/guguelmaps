@@ -44,6 +44,13 @@ class GincanaController extends Controller
             DB::beginTransaction();
             DB::table('tbl_gincana')->insertGetId(["nombre_gincana"=>$datos['nombre_gincana'],"pista1_gincana"=>$datos['pista1_gincana'],"id_punto1_fk"=>$datos['id_punto1_fk'],"pista2_gincana"=>$datos['pista2_gincana'],"id_punto2_fk"=>$datos['id_punto2_fk'],"pista3_gincana"=>$datos['pista3_gincana'],"id_punto3_fk"=>$datos['id_punto3_fk']]);
             DB::commit();
+
+            //JSON
+            $gincanaJSON=DB::select('select * from tbl_gincana');
+            $collectionGincana = collect([$gincanaJSON]);
+            Storage::disk('public')->put('gincana.json', $collectionGincana);
+            //return response()->json($gincanaJSON, 200, []);
+            //JSON
         }catch(\Exception $e){
             DB::rollBack();
             return $e->getMessage();
@@ -72,6 +79,12 @@ class GincanaController extends Controller
             DB::beginTransaction();
             DB::table('tbl_gincana')->where('id_gincana','=',$datos['id_gincana'])->update($datos);
             DB::commit();
+           //JSON
+           $gincanaJSON=DB::select('select * from tbl_gincana');
+           $collectionGincana = collect([$gincanaJSON]);
+           Storage::disk('public')->put('gincana.json', $collectionGincana);
+           //return response()->json($gincanaJSON, 200, []);
+           //JSON
         } catch (\Exception $e) {
             DB::rollBack();
             return $e->getMessage();
@@ -84,7 +97,12 @@ class GincanaController extends Controller
     {
         try {
             DB::delete('delete from tbl_gincana where id_gincana=?',[$id_gincana]);
-            //return redirect()->route('clientes.index');
+           //JSON
+           $gincanaJSON=DB::select('select * from tbl_gincana');
+           $collectionGincana = collect([$gincanaJSON]);
+           Storage::disk('public')->put('gincana.json', $collectionGincana);
+           //return response()->json($gincanaJSON, 200, []);
+           //JSON
             return response()->json(array('resultado'=> 'OK'));
         } catch (\Throwable $th) {
             return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));

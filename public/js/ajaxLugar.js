@@ -34,16 +34,16 @@ function leerJS() {
             var respuesta = JSON.parse(this.responseText);
             var recarga = '';
             recarga += '<tr>';
-            recarga += '<th scope="col">ID</th>';
-            recarga += '<th scope="col">Nombre</th>';
-            recarga += '<th scope="col">Dirección</th>';
-            recarga += '<th scope="col">Coordenadas</th>';
-            recarga += '<th scope="col">Telefono</th>';
-            recarga += '<th scope="col">Descripción</th>';
-            recarga += '<th scope="col">Foto</th>';
-            recarga += '<th scope="col">Tipo</th>';
-            recarga += '<th scope="col">Tag</th>';
-            recarga += '<th scope="col" colspan="2">Acciones</th>';
+            recarga += '<th scope="col"><b>ID</b></th>';
+            recarga += '<th scope="col"><b>Nombre</b></th>';
+            recarga += '<th scope="col"><b>Dirección</b></th>';
+            recarga += '<th scope="col"><b>Coordenadas</b></th>';
+            recarga += '<th scope="col"><b>Telefono</b></th>';
+            recarga += '<th scope="col"><b>Descripción</b></th>';
+            recarga += '<th scope="col"><b>Foto</b></th>';
+            recarga += '<th scope="col"><b>Tipo</b></th>';
+            recarga += '<th scope="col"><b>Tag</b></th>';
+            recarga += '<th scope="col" colspan="2"><b>Acciones</b></th>';
             recarga += '</tr>';
             for (let i = 0; i < respuesta.length; i++) {
                 recarga += '<tr>';

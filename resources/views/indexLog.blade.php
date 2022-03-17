@@ -1,3 +1,9 @@
+@if (!Session::get('email_usuario'))
+    <?php
+        //Si la session no esta definida te redirige al login, la session se crea en el método.
+        return redirect()->to('')->send();
+    ?>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,6 +71,16 @@
                     </div>
                     @endforeach
                 </div>
+
+                <div class="content-tags">
+                    <!-- Cada tags debe de venir de un foreach -->
+                    @foreach($tagperslist as $tag)
+                    <div class="tag">
+                        <!-- el <i> debe ser el icono y el span el nombre del tag -->
+                            <i class="fad fa-tag"></i><span class="txt-tag">&nbsp{{$tag->nombre_tag_usuario}}</span>
+                    </div>
+                    @endforeach
+                </div>
             </div>
             <!-- Para crear un tag personal -->
             <div class="create-tag"><span><i class="fad fa-plus" style="cursor: pointer"></i></span></div>
@@ -76,13 +92,15 @@
     <div class="bottom-menu">
         <div class="content_bottom-menu">
             <!-- boton para hacer logout -->
-            {{-- <div class="btn-logout"><span><i class="fad fa-sign-out"></i></span></div> --}}
+            <a href="{{ url('logout')}}">
+            <div class="btn-logout"><span><i class="fad fa-sign-out"></i></span></div>
+            </a>
             <!-- Boton para unirse a grupo o crear grupo -->
-            {{-- <div class="btn-group">
+            <div class="btn-group">
                 <button class="btn-grupo">
                     <span>Unirme a grupo</span>
                 </button>
-            </div> --}}
+            </div>
             <!-- boton para iniciar sesion o para mostrar los datos de la sesion -->
             <div class="user-profile">
                 <div class="content-profile">
@@ -94,9 +112,7 @@
                     </div> --}}
                     <div class="user-avatar">
                         <!-- foto del usuario -->
-                        <a href="{{ url('login')}}">
                         <img src="../public/media\avatar.png" alt="Avatar">
-                        </a>
                     </div>
                 </div>
             </div>

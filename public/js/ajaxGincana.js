@@ -34,15 +34,15 @@ function leerJS() {
             var respuesta = JSON.parse(this.responseText);
             var recarga = '';
             recarga += '<tr>';
-            recarga += '<th scope="col">ID</th>';
-            recarga += '<th scope="col">Nombre de la gincana</th>';
-            recarga += '<th scope="col">Pista 1</th>';
-            recarga += '<th scope="col">Punto 1</th>';
-            recarga += '<th scope="col">Pista 2</th>';
-            recarga += '<th scope="col">Punto 2</th>';
-            recarga += '<th scope="col">Pista 3</th>';
-            recarga += '<th scope="col">Punto 3</th>';
-            recarga += '<th scope="col" colspan="2">Acciones</th>';
+            recarga += '<th scope="col"><b>ID</b></th>';
+            recarga += '<th scope="col"><b>Nombre de la gincana</b></th>';
+            recarga += '<th scope="col"><b>Pista 1</b></th>';
+            recarga += '<th scope="col"><b>Punto 1</b></th>';
+            recarga += '<th scope="col"><b>Pista 2</b></th>';
+            recarga += '<th scope="col"><b>Punto 2</b></th>';
+            recarga += '<th scope="col"><b>Pista 3</b></th>';
+            recarga += '<th scope="col"><b>Punto 3</b></th>';
+            recarga += '<th scope="col" colspan="2"><b>Acciones</b></th>';
             recarga += '</tr>';
             for (let i = 0; i < respuesta.length; i++) {
                 recarga += '<tr>';

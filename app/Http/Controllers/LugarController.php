@@ -24,6 +24,20 @@ class LugarController extends Controller
         return view("index",compact("tipolist","taglist"));
     }
 
+    public function index3()
+    {
+        //Para pasar el tipo
+        $tipolist = DB::select("SELECT *
+        FROM tbl_tipo");
+        //Para pasar el tag
+        $taglist = DB::select("SELECT *
+        FROM tbl_tags");
+        //Para pasar el tag personalizado
+        $tagperslist = DB::select("SELECT *
+        FROM tbl_tags_usuario WHERE id_usu_tag_usuario=1");
+        return view("indexLog",compact("tipolist","taglist","tagperslist"));
+    }
+
         /* MOSTRAR LUGARES */
         public function index(){
             $lugares=DB::table('tbl_lugar')->join('tbl_tipo','tbl_lugar.id_tipo_fk','=','tbl_tipo.id_tipo')->join('tbl_tags','tbl_lugar.id_tag_fk','=','tbl_tags.id_tag')->select('*')->get();
@@ -60,6 +74,14 @@ class LugarController extends Controller
                 DB::beginTransaction();
                 DB::table('tbl_lugar')->insertGetId(["nombre_lugar"=>$datos['nombre_lugar'],"coordenadas_lugar"=>$datos['coordenadas_lugar'],"direccion_lugar"=>$datos['direccion_lugar'],"telf_lugar"=>$datos['telf_lugar'],"descripcion_lugar"=>$datos['descripcion_lugar'],"foto_lugar"=>$datos['foto_lugar'],"id_tipo_fk"=>$datos['id_tipo_fk'],"id_tag_fk"=>$datos['id_tag_fk']]);
                 DB::commit();
+
+                //JSON
+                $lugarJSON=DB::select('select * from tbl_lugar');
+                $collectionLugar = collect([$lugarJSON]);
+                Storage::disk('public')->put('lugares.json', $collectionLugar);
+                //return response()->json($lugarJSON, 200, []);
+                //JSON
+
             }catch(\Exception $e){
                 DB::rollBack();
                 return $e->getMessage();
@@ -94,6 +116,14 @@ class LugarController extends Controller
                 DB::beginTransaction();
                 DB::table('tbl_lugar')->where('id_lugar','=',$datos['id_lugar'])->update($datos);
                 DB::commit();
+
+                //JSON
+                $lugarJSON=DB::select('select * from tbl_lugar');
+                $collectionLugar = collect([$lugarJSON]);
+                Storage::disk('public')->put('lugares.json', $collectionLugar);
+                //return response()->json($lugarJSON, 200, []);
+                //JSON
+
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $e->getMessage();
@@ -105,12 +135,32 @@ class LugarController extends Controller
         public function eliminarController($id_lugar)
         {
             try {
+                $foto_lugar = DB::select('select foto_lugar from tbl_lugar where id_lugar=?',[$id_lugar]);
+                if ($foto_lugar[0]->foto_lugar != null) {
+                    Storage::delete('public/storage/lugar/'.$foto_lugar[0]->foto_lugar);
+                }
                 DB::delete('delete from tbl_lugar where id_lugar=?',[$id_lugar]);
+                
+                //JSON
+                $lugarJSON=DB::select('select * from tbl_lugar');
+                $collectionLugar = collect([$lugarJSON]);
+                Storage::disk('public')->put('lugares.json', $collectionLugar);
+                //return response()->json($lugarJSON, 200, []);
+                //JSON
+
                 //return redirect()->route('clientes.index');
                 return response()->json(array('resultado'=> 'OK'));
             } catch (\Throwable $th) {
                 return response()->json(array('resultado'=> 'NOK: '.$th->getMessage()));
             }
+        }
+
+        /* JSON LUGAR */
+        public function CrearJson(){
+            $lugarJSON=DB::select('select * from tbl_lugar');
+            $collectionLugar = collect([$lugarJSON]);
+            Storage::disk('public')->put('lugares.json', $collectionLugar);
+            return response()->json($lugarJSON, 200, []);
         }
     }
     

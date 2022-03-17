@@ -8,16 +8,24 @@
     <script src="js/ajaxGincana.js"></script>
     <meta name="csrf-token" id="token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Laravel Gincanas</title>
 </head>
 <body>
-    <div>
+    <div class="white">
+        <br>
         <form class="back" action="{{url('secciones')}}" method="GET">
-            <button><img src="./media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            {{-- <button style="cursor: pointer"><img src="../media/back.png" type="submit" name="back" value="back" width="50px" height="50px"></button> --}}
+            <button><i class="fas fa-long-arrow-alt-left fa-3x" style="cursor: pointer; padding-left:15px"></i></button>
         </form>
         <form class="add" action="{{url('crearGincana')}}" method="GET">
-            <button><img src="./media/+.png" type="submit" name="back" value="back" width="50px" height="50px"></button>
+            {{-- <button><img src="./media/+.png" type="submit" name="back" value="back" width="50px" height="50px"></button> --}}
+            <button><i class="far fa-plus fa-3x" style="cursor: pointer; padding-right:15px"></i></button>
         </form>
+        <br>        
+        <div class="titulo">
+            <h1>GINCANAS</h1>
+        </div>
     </div>
     <center>
             <br>
@@ -27,7 +35,7 @@
             </table>
         </div>
     </center>
-    <img src="./media/gincana.png" name="back" value="back" width="50px" height="50px">
+    <img src="./media/gincana.png" name="back" value="back" width="50px" height="50px" style="padding: 0px 0px 10px 10px;">
 </body>
 
 </html>
