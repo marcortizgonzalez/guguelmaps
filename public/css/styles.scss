@@ -111,7 +111,19 @@ body {
     height: 100vh;
     z-index: 1;
     .leaflet-control-container {
+        // display: none;
+        .leaflet-top.leaflet-left {
+            right: 0;
+            left: unset;
+            top: 40%;
+        }
+    }
+    .leaflet-routing-container {
         display: none;
+    }
+    i {
+        font-size: 40px;
+        color: black;
     }
 }
 
@@ -192,7 +204,7 @@ body {
                     font-size: 25px;
                 }
             }
-            .btn-group {
+            .btn-gin {
                 button {
                     padding: 7px 15px;
                 }
@@ -214,5 +226,19 @@ body {
                 }
             }
         }
+    }
+}
+
+.iconoMapa {
+    text-align: center;
+    /* Horizontally center the text (icon) */
+    line-height: 20px;
+    /* Vertically center the text (icon) */
+}
+
+.btn-gincama {
+    display: none;
+    &.open {
+        display: block;
     }
 }

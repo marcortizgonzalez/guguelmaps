@@ -9,9 +9,14 @@ $(document).ready(function() {
     $(".btn-grupo2").on("click", function(e) {
         unirGrupo();
     });
-    // $(".create-tag").on("click", function(e) {
-    //     tag();
-    // });
+    $(".create-tag").on("click", function(e) {
+        tag();
+    });
+
+
+
+
+
 });
 
 //////////////////////////////
